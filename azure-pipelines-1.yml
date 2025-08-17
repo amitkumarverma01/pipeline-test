@@ -1,0 +1,59 @@
+trigger:
+ branches:
+   include:
+     - main
+       feature/*
+
+pool: agent_vinod
+
+steps:
+- task: TerraformInstaller@1
+  displayName: Terraform Install
+  inputs:
+    terraformVersion: 'latest'
+
+- task: TerraformTask@5
+  displayName: Terraform init
+  inputs:
+    provider: 'azurerm'
+    command: 'init'
+    workingDirectory: '$(System.DefaultWorkingDirectory)/Environment/Dev'
+    backendServiceArm: 'multi-ttriggersc'
+    backendAzureRmStorageAccountName: 'akkcstorageaccount007'
+    backendAzureRmContainerName: 'tfstate'
+    backendAzureRmKey: 'vinod.tfstate'
+
+- task: TerraformTask@5
+  displayName: terrfaorm Validate
+  inputs:
+    provider: 'azurerm'
+    command: 'validate'
+    workingDirectory: '$(System.DefaultWorkingDirectory)/Environment/Dev'
+
+- task: TerraformTask@5
+  displayName: Terraform Format
+  inputs:
+    provider: 'azurerm'
+    command: 'custom'
+    workingDirectory: '$(System.DefaultWorkingDirectory)/Environment/Dev'
+    outputTo: 'console'
+    customCommand: 'terraform fmt'
+    environmentServiceNameAzureRM: 'multi-ttriggersc'
+
+- task: TerraformTask@5
+  displayName: terraform plan
+  inputs:
+    provider: 'azurerm'
+    command: 'plan'
+    workingDirectory: '$(System.DefaultWorkingDirectory)/Environment/Dev'
+    environmentServiceNameAzureRM: 'multi-ttriggersc'
+
+- task: TerraformTask@5
+  displayName: terraform Apply
+  inputs:
+    provider: 'azurerm'
+    command: 'apply'
+    workingDirectory: '$(System.DefaultWorkingDirectory)/Environment/Dev'
+    commandOptions: '-auto-approve'
+    environmentServiceNameAzureRM: 'multi-ttriggersc'
+  

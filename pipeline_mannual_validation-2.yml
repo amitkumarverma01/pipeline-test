@@ -67,6 +67,11 @@ jobs:
         instructions: 'Approve to proceed with Terraform Apply.'
         onTimeout: 'reject'
         timeout: '1d'
+    - task: ManualValidation@1
+      inputs:
+        notifyUsers: 'dkc.hcl@gmail.com'
+        approvers: 'akkc01'
+
 
 - job: Terraform_Apply
   displayName: 'Terraform Apply'

@@ -24,3 +24,9 @@ module "subnet" {
   bsub_name         = "Khanshaar-Backend"
   address_prefixes1 = ["192.168.4.64/26"]
 }
+module "pip" {
+  source = "../../module/public_ip"
+  public_ip = "varddha-pip001"
+  resource_group_name = "varddha-rg001"
+  location = "centralindia"
+}

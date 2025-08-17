@@ -6,6 +6,10 @@ trigger:
 
 pool: agent_vinod
 
+variables:
+  service connection: 'multi-ttriggersc'
+  workdir: '$(System.DefaultWorkingDirectory)/Environment/Dev'
+
 steps:
 - task: TerraformInstaller@1
   displayName: Terraform Install
@@ -17,8 +21,8 @@ steps:
   inputs:
     provider: 'azurerm'
     command: 'init'
-    workingDirectory: '$(System.DefaultWorkingDirectory)/Environment/Dev'
-    backendServiceArm: 'multi-ttriggersc'
+    workingDirectory: $(workdir)
+    backendServiceArm: $(service connection)
     backendAzureRmStorageAccountName: 'akkcstorageaccount007'
     backendAzureRmContainerName: 'tfstate'
     backendAzureRmKey: 'vinod.tfstate'
@@ -28,32 +32,32 @@ steps:
   inputs:
     provider: 'azurerm'
     command: 'validate'
-    workingDirectory: '$(System.DefaultWorkingDirectory)/Environment/Dev'
+    workingDirectory: $(workdir)
 
 - task: TerraformTask@5
   displayName: Terraform Format
   inputs:
     provider: 'azurerm'
     command: 'custom'
-    workingDirectory: '$(System.DefaultWorkingDirectory)/Environment/Dev'
+    workingDirectory: $(workdir)
     outputTo: 'console'
     customCommand: 'fmt'
-    environmentServiceNameAzureRM: 'multi-ttriggersc'
+    environmentServiceNameAzureRM: $(service connection)
 
 - task: TerraformTask@5
   displayName: terraform plan
   inputs:
     provider: 'azurerm'
     command: 'plan'
-    workingDirectory: '$(System.DefaultWorkingDirectory)/Environment/Dev'
-    environmentServiceNameAzureRM: 'multi-ttriggersc'
+    workingDirectory: $(workdir)
+    environmentServiceNameAzureRM: $(service connection)
 
 - task: TerraformTask@5
   displayName: terraform Apply
   inputs:
     provider: 'azurerm'
     command: 'apply'
-    workingDirectory: '$(System.DefaultWorkingDirectory)/Environment/Dev'
+    workingDirectory: $(workdir)
     commandOptions: '-auto-approve'
-    environmentServiceNameAzureRM: 'multi-ttriggersc'
+    environmentServiceNameAzureRM: $(service connection)
   

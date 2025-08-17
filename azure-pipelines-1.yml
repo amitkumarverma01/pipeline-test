@@ -52,6 +52,8 @@ steps:
     workingDirectory: $(workdir)
     environmentServiceNameAzureRM: $(service connection)
 
+
+
 - task: TerraformTask@5
   displayName: terraform Apply
   inputs:

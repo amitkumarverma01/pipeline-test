@@ -1,0 +1,66 @@
+trigger:
+  branches:
+    include:
+      - main
+      - features/*
+
+pool: agent_vinod
+
+variables:
+  workdir: '$(System.DefaultWorkingDirectory)\Environment\Dev'
+  srvc: 'multi-ttriggersc'
+
+steps:
+ 
+- task: TerraformInstaller@1
+  inputs:
+    terraformVersion: 'latest'
+
+- task: TerraformTask@5
+  inputs:
+    provider: 'azurerm'
+    command: 'init'
+    workingDirectory: '$(workdir)'
+    backendServiceArm: '$(srvc)'
+    backendAzureRmStorageAccountName: 'akkcstorageaccount007'
+    backendAzureRmContainerName: 'tfstate'
+    backendAzureRmKey: 'agentvinod.tfstate'
+
+- task: TerraformTask@5
+  inputs:
+    provider: 'azurerm'
+    command: 'validate'
+    workingDirectory: '$(workdir)'
+
+- task: TerraformTask@5
+  inputs:
+    provider: 'azurerm'
+    command: 'custom'
+    workingDirectory: '$(workdir)'
+    outputTo: 'console'
+    customCommand: 'fmt'
+
+- task: TerraformTask@5
+  inputs:
+    provider: 'azurerm'
+    command: 'plan'
+    workingDirectory: '$(workdir)'
+    environmentServiceNameAzureRM: '$(srvc)'
+
+# 🟡 Manual validation step - only for feature branches
+- task: ManualValidation@0
+  condition: startsWith(variables['Build.SourceBranch'], 'refs/heads/features/')
+  inputs:
+    instructions: 'Please review Terraform plan output and approve to proceed.'
+    onTimeout: 'reject'
+    timeout: '1d' # 1 day timeout
+
+# ✅ Apply step - only runs on main branch
+- task: TerraformTask@5
+  condition: eq(variables['Build.SourceBranch'], 'refs/heads/main')
+  inputs:
+    provider: 'azurerm'
+    command: 'apply'
+    workingDirectory: '$(workdir)'
+    environmentServiceNameAzureRM: '$(srvc)'
+    commandOptions: '-auto-approve'

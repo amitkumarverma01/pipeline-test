@@ -37,7 +37,7 @@ steps:
     command: 'custom'
     workingDirectory: '$(System.DefaultWorkingDirectory)/Environment/Dev'
     outputTo: 'console'
-    customCommand: 'terraform fmt'
+    customCommand: 'fmt'
     environmentServiceNameAzureRM: 'multi-ttriggersc'
 
 - task: TerraformTask@5

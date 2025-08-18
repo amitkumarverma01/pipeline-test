@@ -87,7 +87,8 @@ jobs:
         backendAzureRmStorageAccountName: 'akkcstorageaccount007'
         backendAzureRmContainerName: 'akkc'
         backendAzureRmKey: 'akkc.tfstate'
-        commandOptions: '-reconfigure'
+#        commandOptions: '-reconfigure'
+        commandOptions: '-reconfigure -backend-config=use_azuread_auth=false'
 
     - task: TerraformTask@5
       displayName: Terraform Apply

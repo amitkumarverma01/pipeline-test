@@ -87,6 +87,7 @@ jobs:
         backendAzureRmStorageAccountName: 'akkcstorageaccount007'
         backendAzureRmContainerName: 'tfstate'
         backendAzureRmKey: 'vinod.tfstate'
+        commandOptions: '-reconfigure'
 
     - task: TerraformTask@5
       displayName: Terraform Apply

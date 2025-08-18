@@ -27,8 +27,8 @@ jobs:
         workingDirectory: $(workdir)
         backendServiceArm: $(service_connection)
         backendAzureRmStorageAccountName: 'akkcstorageaccount007'
-        backendAzureRmContainerName: 'tfstate'
-        backendAzureRmKey: 'vinod.tfstate'
+        backendAzureRmContainerName: 'akkc'
+        backendAzureRmKey: 'akkc.tfstate'
 
     - task: TerraformTask@5
       displayName: Terraform Validate
@@ -85,8 +85,8 @@ jobs:
         workingDirectory: $(workdir)
         backendServiceArm: $(service_connection)
         backendAzureRmStorageAccountName: 'akkcstorageaccount007'
-        backendAzureRmContainerName: 'tfstate'
-        backendAzureRmKey: 'vinod.tfstate'
+        backendAzureRmContainerName: 'akkc'
+        backendAzureRmKey: 'akkc.tfstate'
         commandOptions: '-reconfigure'
 
     - task: TerraformTask@5

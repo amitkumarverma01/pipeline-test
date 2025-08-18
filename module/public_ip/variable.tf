@@ -1,4 +1,4 @@
-variable "resource_group_name" {
+variable "rg_name" {
   description = "rg name"
   type = string
 }
@@ -8,7 +8,7 @@ variable "location" {
   type = string
 }
 
-variable "public_ip" {
+variable "pip" {
   description = "public ip"
   type = string
 }

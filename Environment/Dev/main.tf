@@ -5,7 +5,7 @@ module "rg" {
 }
 
 module "vnet" {
-  source        = "../../Module/azurerm_virtual_network"
+  source        = "../../module/azurerm_virtual_network"
   depends_on    = [module.rg]
   vnet_name     = "varddha-vnet001"
   address_space = ["192.168.4.0/24"]
@@ -15,7 +15,7 @@ module "vnet" {
 }
 
 module "subnet" {
-  source            = "../../Module/azurerm_subnet"
+  source            = "../../module/azurerm_subnet"
   depends_on        = [module.vnet]
   fsub_name         = "Khanshaar-Frontend"
   rg_name           = "varddha-rg001"
@@ -25,8 +25,8 @@ module "subnet" {
   address_prefixes1 = ["192.168.4.64/26"]
 }
 module "pip" {
-  source = "../../module/public_ip"
-  public_ip = "varddha-pip001"
-  resource_group_name = "varddha-rg001"
+  source   = "../../module/public_ip"
+  pip      = "varddha-pip001"
+  rg_name  = "varddha-rg001"
   location = "centralindia"
 }

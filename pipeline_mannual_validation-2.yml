@@ -11,7 +11,7 @@ variables:
 jobs:
 - job: Terraform_Execution
   displayName: 'Terraform Init/Plan (and Apply for main)'
-  pool: agent_vinod
+  pool: agent_vinod1
 
   steps:
     - task: TerraformInstaller@1
@@ -74,7 +74,7 @@ jobs:
   displayName: 'Terraform Apply'
   dependsOn: Manual_Approval
   condition: and(succeeded(), eq(variables['Build.SourceBranchName'], 'main'))
-  pool: agent_vinod
+  pool: agent_vinod1
 
   steps:
     - task: TerraformTask@5

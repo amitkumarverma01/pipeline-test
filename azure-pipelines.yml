@@ -77,17 +77,17 @@ jobs:
   pool: agent_vinod
 
   steps:
-    - task: TerraformTask@5
-      displayName: Terraform Init (Again)
-      inputs:
-        provider: 'azurerm'
-        command: 'init'
-        workingDirectory: $(workdir)
-        backendServiceArm: $(service_connection)
-        backendAzureRmStorageAccountName: 'akkcstorageaccount007'
-        backendAzureRmContainerName: 'tfstate'
-        backendAzureRmKey: 'vinod.tfstate'
-#        commandOptions: '-reconfigure'
+#     - task: TerraformTask@5
+#       displayName: Terraform Init (Again)
+#       inputs:
+#         provider: 'azurerm'
+#         command: 'init'
+#         workingDirectory: $(workdir)
+#         backendServiceArm: $(service_connection)
+#         backendAzureRmStorageAccountName: 'akkcstorageaccount007'
+#         backendAzureRmContainerName: 'tfstate'
+#         backendAzureRmKey: 'vinod.tfstate'
+# #        commandOptions: '-reconfigure'
 
     - task: TerraformTask@5
       displayName: Terraform Apply

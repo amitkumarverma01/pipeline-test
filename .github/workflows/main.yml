@@ -9,7 +9,7 @@ on:
 
 jobs:
   echo-job:
-    runs-on: ubuntu-latest
+    runs-on: [self-hosted Windows X64]
     steps:
       - name: Say Welcome
         run: echo "welcome bro!"

@@ -1,0 +1,15 @@
+# .github/workflows/test-pipeline.yml
+
+name: Test Pipeline
+
+on:
+  push:
+    branches:
+      - main  # ya jo bhi branch aap use kar rahe ho
+
+jobs:
+  echo-job:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Say Welcome
+        run: echo "welcome bro!"

@@ -5,11 +5,11 @@ name: Test Pipeline
 on:
   push:
     branches:
-      - main  # ya jo bhi branch aap use kar rahe ho
+      - main
 
 jobs:
   echo-job:
-    runs-on: [self-hosted Windows X64]
+    runs-on: [self-hosted, Windows, X64]  # Make sure labels match exactly
     steps:
       - name: Say Welcome
         run: echo "welcome bro!"

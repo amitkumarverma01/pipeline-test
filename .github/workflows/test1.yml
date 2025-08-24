@@ -24,10 +24,11 @@ jobs:
       - name: Terraform Init
         run: |
           terraform init \
-            -backend-config="storage_account_name=akkcstorageaccount007" \
-            -backend-config="container_name=tfstate" \
-            -backend-config="key=vinod.tfstate"
+            -backend-config="storage_account_name=jarvisstorageaccount001" \
+            -backend-config="container_name=jarvis" \
+            -backend-config="key=github.dev.tfstate"
         working-directory: ${{ env.WORKDIR }}
+
 
       - name: Terraform Validate
         run: terraform validate

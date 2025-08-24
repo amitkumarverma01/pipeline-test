@@ -1,0 +1,46 @@
+name: Terraform Pipeline
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  terraform:
+    runs-on: [self-hosted, Windows, X64]  # Make sure this matches your runner
+
+    env:
+      WORKDIR: ${{ github.workspace }}/Environment/Dev
+
+    steps:
+      - name: Checkout Repo
+        uses: actions/checkout@v4
+
+      - name: Setup Terraform
+        uses: hashicorp/setup-terraform@v3
+        with:
+          terraform_version: latest
+
+      - name: Terraform Init
+        run: |
+          terraform init \
+            -backend-config="storage_account_name=akkcstorageaccount007" \
+            -backend-config="container_name=tfstate" \
+            -backend-config="key=vinod.tfstate"
+        working-directory: ${{ env.WORKDIR }}
+
+      - name: Terraform Validate
+        run: terraform validate
+        working-directory: ${{ env.WORKDIR }}
+
+      - name: Terraform Format
+        run: terraform fmt -check -recursive
+        working-directory: ${{ env.WORKDIR }}
+
+      - name: Terraform Plan
+        run: terraform plan
+        working-directory: ${{ env.WORKDIR }}
+
+      - name: Terraform Apply
+        run: terraform apply -auto-approve
+        working-directory: ${{ env.WORKDIR }}

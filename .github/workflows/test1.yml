@@ -20,13 +20,14 @@ jobs:
         uses: hashicorp/setup-terraform@v3
         with:
           terraform_version: latest
-
+          
       - name: Terraform Init
+        shell: pwsh
         run: |
-          terraform init \
-            -backend-config="storage_account_name=jarvisstorageaccount001" \
-            -backend-config="container_name=jarvis" \
-            -backend-config="key=github.dev.tfstate"
+          terraform init `
+            -backend-config="storage_account_name=jarvisstorageaccount001" `
+            -backend-config="container_name=tfstate" `
+            -backend-config="key=vinod.tfstate"
         working-directory: ${{ env.WORKDIR }}
 
 

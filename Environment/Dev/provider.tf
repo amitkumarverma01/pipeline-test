@@ -5,15 +5,16 @@ terraform {
       version = "4.14.0"
     }
   }
-  backend "azurerm" {
-    
-  }
 
+  backend "azurerm" {
+    resource_group_name   = "jarvis"
+    storage_account_name  = "jarvisstorageaccount001"
+    container_name        = "jarvis"
+    key                   = "vinod.tfstate"
+  }
 }
 
 provider "azurerm" {
-  # Configuration options
   features {}
-  
   subscription_id = "177b7e12-5f03-4f63-bcd1-ed6d1d776bff"
 }

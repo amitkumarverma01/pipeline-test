@@ -16,7 +16,7 @@ module "vnet" {
 
 module "subnet" {
   source            = "../../module/azurerm_subnet"
-  depends_on        = [module.vnet]
+  depends_on        = [module.rg, module.vnet]
   fsub_name         = "Khanshaar-Frontend"
   rg_name           = "varddha-rg001"
   address_prefixes  = ["192.168.4.0/26"]
@@ -26,6 +26,7 @@ module "subnet" {
 }
 module "pip" {
   source   = "../../module/public_ip"
+  depends_on = [ module.rg ]
   pip      = "varddha-pip001"
   rg_name  = "varddha-rg001"
   location = "centralindia"

@@ -39,17 +39,17 @@ jobs:
 
 
       - name: Terraform Validate
-        run: terraform validate
+        run: terraform.exe validate
         working-directory: ${{ env.WORKDIR }}
 
       - name: Terraform Format
-        run: terraform fmt -check -recursive
+        run: terraform.exe fmt -check -recursive
         working-directory: ${{ env.WORKDIR }}
 
       - name: Terraform Plan
-        run: terraform plan
+        run: terraform.exe plan
         working-directory: ${{ env.WORKDIR }}
 
       - name: Terraform Apply
-        run: terraform apply -auto-approve
+        run: terraform.exe apply -auto-approve
         working-directory: ${{ env.WORKDIR }}

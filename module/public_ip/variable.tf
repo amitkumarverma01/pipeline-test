@@ -1,14 +1,14 @@
 variable "rg_name" {
   description = "rg name"
-  type = string
+  type        = string
 }
 
 variable "location" {
   description = "location"
-  type = string
+  type        = string
 }
 
 variable "pip" {
   description = "public ip"
-  type = string
+  type        = string
 }

@@ -32,7 +32,9 @@ jobs:
           terraform.exe init `
             -backend-config="storage_account_name=jarvisstorageaccount001" `
             -backend-config="container_name=jarvis" `
-            -backend-config="key=vinod.tfstate"
+            -backend-config="key=vinod.tfstate" `
+            -backend-config="resource_group_name=jarvis" `
+            -backend-config="use_azuread_auth=true"
         working-directory: ${{ env.WORKDIR }}
 
 

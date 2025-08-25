@@ -37,7 +37,6 @@ jobs:
             -backend-config="use_azuread_auth=true"
         working-directory: ${{ env.WORKDIR }}
 
-
       - name: Terraform Validate
         run: terraform.exe validate
         working-directory: ${{ env.WORKDIR }}

@@ -31,7 +31,7 @@ jobs:
         run: |
           terraform init `
             -backend-config="storage_account_name=jarvisstorageaccount001" `
-            -backend-config="container_name=tfstate" `
+            -backend-config="container_name=jarvis" `
             -backend-config="key=vinod.tfstate"
         working-directory: ${{ env.WORKDIR }}
 

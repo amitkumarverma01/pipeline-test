@@ -1,10 +1,10 @@
 name: Terraform Pipeline
 
-on:
-  push:
-    branches:
-      - main
-  workflow_dispatch:  # manual trigger allowed
+# on:
+#   push:
+#     branches:
+#       - main
+#   workflow_dispatch:  # manual trigger allowed
 
 jobs:
   plan:
